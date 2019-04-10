@@ -36,6 +36,30 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
+        <dependency>
+            <groupId>cn.itrip.alipay</groupId>
+            <artifactId>itrip-alipay</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <!--===START===微信支付所需要maven依赖===START===-->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.21</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.21</version>
+        </dependency>
+        <!--===END===微信支付所需要maven依赖===END===-->
+
+
     </dependencies>
 
     <build>
