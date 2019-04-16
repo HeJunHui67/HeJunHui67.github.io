@@ -26,7 +26,7 @@ public class UserController {
      * 使用邮箱注册
      * @param userVO
      */
-    @ApiOperation(value="使用邮箱注册",httpMethod = "POST",
+    @ApiOperation(value="使用邮箱注册",httpMethod = "post",
             protocols = "HTTP",  response = Dto.class,notes="使用邮箱注册 ")
     @RequestMapping(value="/doregister",method= RequestMethod.POST)
     @ResponseBody
@@ -53,8 +53,23 @@ public class UserController {
             return DtoUtil.returnFail(e.getMessage(), ErrorCode.AUTH_UNKNOWN);
         }
     }
-
-
+    /**
+     * 注册验证
+     */
+    @RequestMapping(value = "/ckusr", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public Dto checkUser(@RequestParam String name) {
+        try {
+            if (null == userService.findByUsername(name)) {
+                return DtoUtil.returnSuccess("用户名可用");
+            } else {
+                return DtoUtil.returnFail("用户已经存在，注册失败", ErrorCode.AUTH_USER_ALREADY_EXISTS);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return DtoUtil.returnFail(e.getMessage(), ErrorCode.AUTH_UNKNOWN);
+        }
+    }
     /**           *
      * 合法E-mail地址：
      * 1. 必须包含一个并且只有一个符号“@”
@@ -94,7 +109,7 @@ public class UserController {
      */
     @ApiOperation(value="使用手机注册",httpMethod = "POST",
             protocols = "HTTP",  response = Dto.class,notes="使用手机注册 ")
-    @RequestMapping(value="/doRegisterByPhone",method= RequestMethod.POST)
+    @RequestMapping(value="/registerbyphone",method= RequestMethod.POST)
     @ResponseBody
     public  Dto doRegisterByPhone(@RequestBody ItripUserVO userVO) {
         //1、手机号格式验证
@@ -133,7 +148,7 @@ public class UserController {
 
     @ApiOperation(value="手机注册用户激活",httpMethod = "PUT",
             protocols = "HTTP",  response = Dto.class,notes="手机注册用户激活")
-    @RequestMapping(value="/activateByPhone",method=RequestMethod.PUT)
+    @RequestMapping(value="/validatephone",method=RequestMethod.PUT)
     @ResponseBody
     public Dto activateByPhone(
             @ApiParam(name="user",value="手机号码")@RequestParam String user,
